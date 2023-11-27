@@ -1,0 +1,9 @@
+{
+	"$schema": "https://json.schemastore.org/eslintrc",
+	"extends": ["@cubos"],
+	"rules": {
+		"no-tabs": "off",
+		"promise/catch-or-return": "off",
+		"max-depth": "off"
+	}
+}
