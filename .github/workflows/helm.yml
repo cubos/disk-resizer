@@ -1,0 +1,55 @@
+name: Helm Chart
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+
+jobs:
+  helm:
+    name: Publish to GitHub 📦
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Configure Git 📖
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm ⚙️
+        uses: azure/setup-helm@v3
+
+      - name: Login to Helm Registry 🔑
+        run: |
+          helm registry login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
+
+      - name: Setup Node.js 📦
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies 🔧
+        run: |
+          npm ci --include=dev
+
+      - name: Build chart 🚚
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            sed -i "s/0.0.0/${{ github.ref }}/g" Chart.yaml
+          else
+            sed -i "s/0.0.0/0.0.0-${GITHUB_SHA::7}/g" Chart.yaml
+          fi
+
+          npm run build
+
+      - name: Publish chart 📦
+        run: |
+          helm push *.tgz oci://ghcr.io/cubos/charts

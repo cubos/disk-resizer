@@ -11,7 +11,7 @@
 		"url": "https://github.com/cubos/disk-resizer-controller.git"
 	},
 	"scripts": {
-		"build:chart": "node --no-warnings --loader ts-node/esm src/controller.ts chart helm/Chart.yaml --image $CI_REGISTRY_IMAGE:v$VERSION"
+		"build:chart": "node --no-warnings --loader ts-node/esm src/controller.ts chart helm/Chart.yaml"
 	},
 	"dependencies": {
 		"@sentry/node": "^7.82.0",

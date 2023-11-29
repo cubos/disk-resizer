@@ -1,0 +1,21 @@
+apiVersion: v2
+name: disk-resizer-controller
+description: Kubernetes controller to automatically resize disks with high usage
+home: https://github.com/cubos/disk-resizer-controller
+type: application
+keywords:
+  - kubernetes
+  - controller
+  - disk
+  - resizer
+  - csi
+sources:
+  - https://github.com/cubos/disk-resizer-controller
+maintainers:
+  - name: Douglas Gadêlha
+    email: dgadelha@users.noreply.github.com
+  - name: Guilherme Bernal
+    email: lbguilherme@users.noreply.github.com
+kubeVersion: ">= 1.21.0-0"
+version: 0.0.0
+appVersion: 0.0.0

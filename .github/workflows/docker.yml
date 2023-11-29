@@ -1,13 +1,15 @@
+name: Docker Image
+
 on:
   push:
     branches:
       - main
     tags:
-      - v*
+      - "*"
 
 jobs:
   docker:
-    name: Docker Image 🐳
+    name: Publish to Docker Hub 🐳
     runs-on: ubuntu-latest
 
     steps:
