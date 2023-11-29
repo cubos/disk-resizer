@@ -50,6 +50,6 @@ jobs:
 
           npm run build:chart
 
-      - name: Publish chart 📦
+      - name: Publish chart 🚀
         run: |
           helm push *.tgz oci://ghcr.io/cubos/charts
