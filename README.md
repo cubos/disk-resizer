@@ -14,7 +14,8 @@ The controller runs a CronJob every 5 minutes that lists all PersistentVolumeCla
 helm install disk-resizer-controller oci://ghcr.io/cubos/charts/disk-resizer-controller \
   --namespace kube-system \
   --set secrets.env.CLUSTER_NAME=your-cluster-name \
-  --set secrets.env.SLACK_WEBHOOK_URL="https://hooks.slack.com/services/your/slack/webhook/url"
+  --set secrets.env.SLACK_WEBHOOK_URL="https://hooks.slack.com/services/your/slack/webhook/url" \
+  --version <version>
 ```
 
 ## Environment variables
