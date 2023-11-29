@@ -48,7 +48,7 @@ jobs:
             sed -i "s/0.0.0/0.0.0-${GITHUB_SHA::7}/g" helm/Chart.yaml
           fi
 
-          npm run build
+          npm run build:chart
 
       - name: Publish chart 📦
         run: |
