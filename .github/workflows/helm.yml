@@ -43,24 +43,13 @@ jobs:
       - name: Build chart 🚚
         run: |
           if [[ "${{ github.ref_type }}" == "tag" ]]; then
-            VERSION="${{ github.ref }}"
+            sed -i "s/0.0.0/${{ github.ref }}/g" helm/Chart.yaml
           else
-            VERSION="0.0.0-${GITHUB_SHA::7}"
+            sed -i "s/0.0.0/0.0.0-${GITHUB_SHA::7}/g" helm/Chart.yaml
           fi
 
-          sed -i "s/0.0.0/$VERSION/g" helm/Chart.yaml
           npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
-
-          if [[ "${{ github.ref_type }}" == "tag" ]]; then
-            sed -i "s/$VERSION/latest/g" helm/Chart.yaml
-            npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
-          else
-            sed -i "s/$VERSION/edge/g" helm/Chart.yaml
-            npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
-          fi
 
       - name: Publish chart 🚀
         run: |
-          for f in *.tgz; do
-            helm push $f oci://ghcr.io/cubos/charts
-          done
+          helm push *.tgz oci://ghcr.io/cubos/charts
