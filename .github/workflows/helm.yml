@@ -51,6 +51,14 @@ jobs:
           sed -i "s/0.0.0/$VERSION/g" helm/Chart.yaml
           npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
 
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            sed -i "s/$VERSION/latest/g" helm/Chart.yaml
+            npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
+          else
+            sed -i "s/$VERSION/edge/g" helm/Chart.yaml
+            npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
+          fi
+
       - name: Publish chart 🚀
         run: |
           helm push *.tgz oci://ghcr.io/cubos/charts
