@@ -61,4 +61,6 @@ jobs:
 
       - name: Publish chart 🚀
         run: |
-          helm push *.tgz oci://ghcr.io/cubos/charts
+          for f in *.tgz; do
+            helm push $f oci://ghcr.io/cubos/charts
+          done
