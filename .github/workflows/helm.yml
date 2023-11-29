@@ -43,11 +43,12 @@ jobs:
       - name: Build chart 🚚
         run: |
           if [[ "${{ github.ref_type }}" == "tag" ]]; then
-            sed -i "s/0.0.0/${GITHUB_REF_NAME}/g" helm/Chart.yaml
+            VERSION="${GITHUB_REF_NAME}"
           else
-            sed -i "s/0.0.0/0.0.0-${GITHUB_SHA::7}/g" helm/Chart.yaml
+            VERSION="0.0.0-${GITHUB_SHA::7}"
           fi
 
+          sed -i "s/0.0.0/$VERSION/g" helm/Chart.yaml
           npm run build:chart -- --image cubos/disk-resizer-controller:$VERSION
 
       - name: Publish chart 🚀
