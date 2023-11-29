@@ -43,7 +43,7 @@ jobs:
       - name: Build chart 🚚
         run: |
           if [[ "${{ github.ref_type }}" == "tag" ]]; then
-            sed -i "s/0.0.0/${{ github.ref }}/g" helm/Chart.yaml
+            sed -i "s/0.0.0/${GITHUB_REF_NAME}/g" helm/Chart.yaml
           else
             sed -i "s/0.0.0/0.0.0-${GITHUB_SHA::7}/g" helm/Chart.yaml
           fi
