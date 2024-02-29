@@ -25,7 +25,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm ⚙️
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
 
       - name: Login to Helm Registry 🔑
         run: |
